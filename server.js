@@ -54,31 +54,23 @@ dispatcher.onPost('/card', function(req, res) {
 	var team = JSON.parse(params.team_id);
 	var client = '';
 
-	switch(team){
-		case 'T07AGCZNZ':
-			client = 'T07AGCZNZ/B07HDETK9/cWvG3OEEYv2SXLNepiZUEcTZ';
-		break;
-		case 'T02FJ886H':
-			client = 'T02FJ886H/B07FUFG9J/SdAyVpMjNGUn1XGX7ooPrdeI';
-		break;
-		default:
-			res.end('Couldn\'t find team. Check team id input');
-		break;
-	}
-
-	if(card === 'random') {
-		getRandomCard(channel, client);
-    res.end()
-	}else if(card === 'random10'){
-    for(var i = 0;i < 10;i++){
-      getRandomCard(channel, client)
+  var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/");
+  slackURL.once("value",function(child){
+    client = child.child(team).val()
+    if(card === 'random') {
+      getRandomCard(channel, client);
+      res.end()
+    }else if(card === 'random10'){
+      for(var i = 0;i < 10;i++){
+        getRandomCard(channel, client)
+      }
+      res.end()
+    } else{
+      getCard(card,channel,client,res);
     }
-    res.end()
-  } else{
-    getCard(card,channel,client,res);
+  })
 
-    
-  }
+	
 });
 
 function postToSlack(channel, client, cardURI) {
