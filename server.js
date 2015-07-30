@@ -3,10 +3,15 @@ var http = require('http');
 var dispatcher = require('httpdispatcher');
 var url = require('url');
 var Firebase = require('firebase');
+var changeCase = require('change-case')
 
 var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/');
 var cardCount = 15418;
 var PORT = 8080;
+
+String.prototype.replaceAt=function(index, character) {
+    return this.substr(0, index) + character + this.substr(index+character.length);
+}
 
 function handleRequest(request, response){
 	try {
@@ -63,10 +68,17 @@ dispatcher.onPost('/card', function(req, res) {
 
 	if(card === 'random') {
 		getRandomCard(channel, client);
-	}
+    res.end()
+	}else if(card === 'random10'){
+    for(var i = 0;i < 10;i++){
+      getRandomCard(channel, client)
+    }
+    res.end()
+  } else{
+    getCard(card,channel,client,res);
 
-
-	res.end('Card: ' + card + ' Channel: ' + channel + ' Team: ' + team + '\n');
+    
+  }
 });
 
 function postToSlack(channel, client, cardURI) {
@@ -90,9 +102,58 @@ function getRandomCard(channel, client) {
 		var rNum = Math.floor((Math.random() * cardCount) + 0);
 		var cards = child.val();
 		var cName = Object.keys(cards)[rNum];
-		var rnNum = Math.floor((Math.random() * Object.keys(cards[cName]).length) - 1);
+    var length = child.child(cName).child("ids").numChildren();
+		var rnNum = Math.floor((Math.random() * (length - 1)));
 		var mId = cards[cName].ids[Object.keys(cards[cName].ids)[rnNum]];
+    console.log("Length: " + length + " Index: " + rnNum + " MID: " + mId + " Card: " + cName)
 		var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card';
-		postToSlack(channel, client, uri);
+		if(mId == undefined){
+
+    }else{
+      postToSlack(channel, client, uri);
+    }
 	});
+}
+
+function getCard(card,channel,client,res){
+  
+  card = sanitizeName(card)
+  console.log(card)
+    ref.once('value',function(child){
+        var ids = child.child(card).child("ids");
+        if(ids.val() !== null){
+          var length = ids.numChildren();
+          var rnNum = Math.floor((Math.random() * (length - 1)));
+          var getIds = ids.val()
+          console.log(getIds)
+          var key = Object.keys(getIds)[rnNum]
+          console.log(key)
+          var mId = getIds[key]
+          console.log("Length: " + length + " Index: " + rnNum + " MID: " + mId + " Card: " + card)
+          var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card';
+          res.end();
+          if(mId == undefined){
+            res.end("Could not find Multiverse ID\n")
+          }else{
+            postToSlack(channel, client, uri);
+          }
+      }else{
+        res.end("Bad Card Name\n")
+      }
+    })
+
+}
+
+function sanitizeName(card){
+  var hiphen = card.indexOf("-");
+  if(hiphen != -1){
+    card = card.replaceAt(hiphen," ");
+  }
+  card = changeCase.titleCase(card)
+  if(hiphen != -1){
+    card = card.replaceAt(hiphen,"-")
+  }
+  card = card.replace("Of","of");
+  card = card.replace("The","the");
+  return card
 }
