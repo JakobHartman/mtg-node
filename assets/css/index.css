@@ -1,0 +1,23 @@
+
+      .col-centered{
+        float: none;
+        margin: 0 auto;
+      }  
+      
+      #loginBlock{
+        padding-top:10px;
+      }
+      
+      #loginBox{
+        border:black solid 1px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        height: 300px;
+      }
+      
+      #regLink{
+        position:absolute;
+        bottom:-110px;
+        cursor:pointer;
+      }

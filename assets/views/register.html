@@ -1,0 +1,124 @@
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="http://toast-amber.codio.io/mtg-node/assets/css/index.css">
+		<title>MTG Slack Intergration Register</title>
+    <script>
+      function register(){
+        
+      }
+      
+      function validate(){
+        var email = $("#email").val()
+        var password = $("#password").val()
+        var cpassword = $("#cPassword").val()
+        var SID = $("#SID").val()
+        var SWURL = $("#SWURL").val()
+        
+        var regString = [email,password,cpassword,SID,SWURL]
+        console.log(regString)
+        var valString = [];
+        if(regString[0].indexOf("@") < 0){
+          valString.push("e");
+        }
+        if(regString[1] != regString[2] || regString[1] == "" || regString[2] == ""){
+          valString.push("p")
+        }
+        if(regString[3] == ""){
+          valString.push("t")
+        }
+        if(regString[4] == ""){
+          valString.push("u")
+        }
+        console.log(valString)
+        for(var i = 0; i < valString.length;i++){
+           if(valString[i] == "e"){
+             $("#email").parent().addClass("has-error");
+             $("#email").val("")
+             $("#email").attr("placeholder","Enter a valid Email")
+           } else if (valString[i] == "p"){
+             $("#password").parent().addClass("has-error");
+             $("#password").val("")
+             $("#password").attr("placeholder","Passwords dont Match")
+             $("#cPassword").parent().addClass("has-error");
+             $("#cPassword").val("")
+             $("#cPassword").attr("placeholder","Passwords dont Match")
+           } else if (valString[i] == "t"){
+             $("#SID").parent().addClass("has-error");
+             $("#SID").val("")
+             $("#SID").attr("placeholder","Enter a valid team ID")
+           } else if (valString[i] == "u"){
+             $("#SWURL").parent().addClass("has-error");
+             $("#SWURL").val("")
+             $("#SWURL").attr("placeholder","Enter a valid url")
+           }
+        }
+        if(valString.length == 0){
+          $("#registerUserForm").submit();
+        }
+      }
+    </script>
+	</head>
+	
+	<body>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand">MTG Slack Intergration</a>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<div id="loginBox" class="col-xs-8 col-centered">
+					<div class="row">
+						<nav class="navbar navbar-inverse col-centered">
+							<div class="container-fluid">
+								<div class="navbar-header">
+									<a class="navbar-brand">Register</a>
+								</div>
+								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+									<ul class="nav navbar-nav">
+									</ul>
+									<ul class="nav navbar-nav navbar-right">
+									</ul>
+								</div>
+							</div>
+						</nav>
+					</div>
+					<div class="row">
+						<div class="col-xs-10 col-centered" id="loginBlock">
+							<form id="registerUserForm" action="/register" method="POST">
+                <div>
+                  <input class="form-control" id="email" placeholder="Email Address">
+                </div>
+                <div>
+                  <input class="form-control" id="password" placeholder="Password">
+                </div>
+                <div>
+                  <input class="form-control" id="cPassword" placeholder="Confirm Password">
+                </div>
+                <div>
+                  <input class="form-control" id="SID" placeholder="Slack Team ID">
+                </div>
+                <div>
+                  <input class="form-control" id="SWURL" placeholder="Slack Webhook URL">
+                </div>
+								<input class="btn btn-primary form-control center-block" onclick="validate()" type="button" value="Register">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

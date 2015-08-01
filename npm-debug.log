@@ -1,0 +1,88 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/codio/.nvm/v0.10.33/bin/node',
+1 verbose cli   '/home/codio/.nvm/v0.10.33/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'send-grid' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 warn package.json fs@0.0.2 fs is also the name of a node core module.
+5 warn package.json fs@0.0.2 No description
+6 warn package.json fs@0.0.2 No repository field.
+7 warn package.json fs@0.0.2 No README data
+8 warn package.json url@0.10.3 url is also the name of a node core module.
+9 verbose cache add [ 'send-grid', null ]
+10 verbose cache add name=undefined spec="send-grid" args=["send-grid",null]
+11 verbose parsed url { protocol: null,
+11 verbose parsed url   slashes: null,
+11 verbose parsed url   auth: null,
+11 verbose parsed url   host: null,
+11 verbose parsed url   port: null,
+11 verbose parsed url   hostname: null,
+11 verbose parsed url   hash: null,
+11 verbose parsed url   search: null,
+11 verbose parsed url   query: null,
+11 verbose parsed url   pathname: 'send-grid',
+11 verbose parsed url   path: 'send-grid',
+11 verbose parsed url   href: 'send-grid' }
+12 silly lockFile 9ff37003-send-grid send-grid
+13 verbose lock send-grid /home/codio/.npm/9ff37003-send-grid.lock
+14 silly lockFile 9ff37003-send-grid send-grid
+15 silly lockFile 9ff37003-send-grid send-grid
+16 verbose addNamed [ 'send-grid', '' ]
+17 verbose addNamed [ null, '*' ]
+18 silly lockFile ab71661d-send-grid send-grid@
+19 verbose lock send-grid@ /home/codio/.npm/ab71661d-send-grid.lock
+20 silly addNameRange { name: 'send-grid', range: '*', hasData: false }
+21 verbose request where is /send-grid
+22 verbose request registry https://registry.npmjs.org/
+23 verbose request id 1dbb154260ccdae3
+24 verbose url raw /send-grid
+25 verbose url resolving [ 'https://registry.npmjs.org/', './send-grid' ]
+26 verbose url resolved https://registry.npmjs.org/send-grid
+27 verbose request where is https://registry.npmjs.org/send-grid
+28 info trying registry request attempt 1 at 17:19:59
+29 http GET https://registry.npmjs.org/send-grid
+30 http 404 https://registry.npmjs.org/send-grid
+31 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+31 verbose headers   'content-type': 'application/json',
+31 verbose headers   'cache-control': 'max-age=0',
+31 verbose headers   'content-length': '51',
+31 verbose headers   'accept-ranges': 'bytes',
+31 verbose headers   date: 'Sat, 01 Aug 2015 17:19:59 GMT',
+31 verbose headers   via: '1.1 varnish',
+31 verbose headers   age: '0',
+31 verbose headers   connection: 'keep-alive',
+31 verbose headers   'x-served-by': 'cache-jfk1034-JFK',
+31 verbose headers   'x-cache': 'MISS',
+31 verbose headers   'x-cache-hits': '0',
+31 verbose headers   'x-timer': 'S1438449599.818108,VS0,VE95' }
+32 silly registry.get cb [ 404,
+32 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+32 silly registry.get     'content-type': 'application/json',
+32 silly registry.get     'cache-control': 'max-age=0',
+32 silly registry.get     'content-length': '51',
+32 silly registry.get     'accept-ranges': 'bytes',
+32 silly registry.get     date: 'Sat, 01 Aug 2015 17:19:59 GMT',
+32 silly registry.get     via: '1.1 varnish',
+32 silly registry.get     age: '0',
+32 silly registry.get     connection: 'keep-alive',
+32 silly registry.get     'x-served-by': 'cache-jfk1034-JFK',
+32 silly registry.get     'x-cache': 'MISS',
+32 silly registry.get     'x-cache-hits': '0',
+32 silly registry.get     'x-timer': 'S1438449599.818108,VS0,VE95' } ]
+33 silly lockFile ab71661d-send-grid send-grid@
+34 silly lockFile ab71661d-send-grid send-grid@
+35 error 404 404 Not Found: send-grid
+35 error 404
+35 error 404 'send-grid' is not in the npm registry.
+35 error 404 You should bug the author to publish it
+35 error 404
+35 error 404 Note that you can also install from a
+35 error 404 tarball, folder, or http url, or git url.
+36 error System Linux 3.16.0-34-generic
+37 error command "/home/codio/.nvm/v0.10.33/bin/node" "/home/codio/.nvm/v0.10.33/bin/npm" "install" "send-grid"
+38 error cwd /home/codio/workspace/mtg-node
+39 error node -v v0.10.33
+40 error npm -v 1.4.28
+41 error code E404
+42 verbose exit [ 1, true ]

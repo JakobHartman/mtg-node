@@ -4,6 +4,8 @@ var dispatcher = require('httpdispatcher');
 var url = require('url');
 var Firebase = require('firebase');
 var changeCase = require('change-case')
+var fs = require("fs")
+var sendgrid = require("sendgrid")("Jakobhartman","Dangers1177"); 
 
 var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/');
 var cardCount = 15418;
@@ -34,12 +36,49 @@ server.listen(PORT, function() {
 //For all your static (js/css/images/etc.) set the directory name (relative path).
 dispatcher.setStatic('/');
 
-//A sample GET request
-dispatcher.onGet('/page1', function(req, res) {
-	console.log('Got page1 request');
-	res.writeHead(200);
-	res.end('hello world\n');
+dispatcher.onPost("/register",function(req,res){
+  console.log("Sending Mail")
+    var payload   = {
+      to      : 'Jakobhartman@hotmail.com',
+      from    : 'Jakobhartman@hotmail.com',
+      subject : 'Saying Hi',
+      text    : 'This is my first email through SendGrid'
+    }
+    
+    sendgrid.send(payload, function(err, json) {
+        if (err) { console.error(err); }
+        console.log(json);
+    });
+    res.end()
 });
+
+dispatcher.onPost("/validateEmail",function(req,res){
+  
+})
+
+//A sample GET request
+dispatcher.onGet('/', function(req, res) {
+	fs.readFile('assets/views/index.html',function(er,html){
+    if(er){
+      console.log(er)
+    }
+    res.writeHeader(200, {"Content-Type": "text/html"});
+    res.write(html);
+    res.end();
+  })
+})
+
+dispatcher.onGet('/register', function(req, res) {
+	fs.readFile('assets/views/register.html',function(er,html){
+    if(er){
+      console.log(er)
+    }
+    res.writeHeader(200, {"Content-Type": "text/html"});
+    res.write(html);
+    res.end();
+  })
+})
+
 
 function getParams(urlText){
 	var urlParts = url.parse(urlText, true);
@@ -69,9 +108,7 @@ dispatcher.onPost('/card', function(req, res) {
       getCard(card,channel,client,res);
     }
   })
-
-	
-});
+ })
 
 function postToSlack(channel, client, cardURI) {
 	console.log('Client: ' + client);
@@ -104,7 +141,7 @@ function getRandomCard(channel, client) {
     }else{
       postToSlack(channel, client, uri);
     }
-	});
+	})
 }
 
 function getCard(card,channel,client,res){
