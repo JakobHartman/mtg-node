@@ -1,0 +1,36 @@
+{
+  "name": "mtg-node",
+  "version": "1.0.0",
+  "description": "mtg card intergration for slack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependancies":{
+    "change-case":"2.3.0",
+    "firebase":"2.2.8",
+    "fs":"0.0.2",
+    "httpdispatcher":"0.4.0",
+    "jquery":"2.1.4",
+    "jsdom":"3.1.2",
+    "sendgrid":"1.9.2",
+    "url":"0.10.3"
+  },
+  "engine":{
+    "node":"0.10.33"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JakobHartman/mtg-node.git"
+  },
+  "keywords": [
+    "mtg"
+  ],
+  "author": "Jakob Hartman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JakobHartman/mtg-node/issues"
+  },
+  "homepage": "https://github.com/JakobHartman/mtg-node"
+}
