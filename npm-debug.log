@@ -1,88 +1,83 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/home/codio/.nvm/v0.10.33/bin/node',
-1 verbose cli   '/home/codio/.nvm/v0.10.33/bin/npm',
-1 verbose cli   'install',
-1 verbose cli   'send-grid' ]
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'ssendgrid' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.33
-4 warn package.json fs@0.0.2 fs is also the name of a node core module.
-5 warn package.json fs@0.0.2 No description
-6 warn package.json fs@0.0.2 No repository field.
-7 warn package.json fs@0.0.2 No README data
-8 warn package.json url@0.10.3 url is also the name of a node core module.
-9 verbose cache add [ 'send-grid', null ]
-10 verbose cache add name=undefined spec="send-grid" args=["send-grid",null]
-11 verbose parsed url { protocol: null,
-11 verbose parsed url   slashes: null,
-11 verbose parsed url   auth: null,
-11 verbose parsed url   host: null,
-11 verbose parsed url   port: null,
-11 verbose parsed url   hostname: null,
-11 verbose parsed url   hash: null,
-11 verbose parsed url   search: null,
-11 verbose parsed url   query: null,
-11 verbose parsed url   pathname: 'send-grid',
-11 verbose parsed url   path: 'send-grid',
-11 verbose parsed url   href: 'send-grid' }
-12 silly lockFile 9ff37003-send-grid send-grid
-13 verbose lock send-grid /home/codio/.npm/9ff37003-send-grid.lock
-14 silly lockFile 9ff37003-send-grid send-grid
-15 silly lockFile 9ff37003-send-grid send-grid
-16 verbose addNamed [ 'send-grid', '' ]
-17 verbose addNamed [ null, '*' ]
-18 silly lockFile ab71661d-send-grid send-grid@
-19 verbose lock send-grid@ /home/codio/.npm/ab71661d-send-grid.lock
-20 silly addNameRange { name: 'send-grid', range: '*', hasData: false }
-21 verbose request where is /send-grid
-22 verbose request registry https://registry.npmjs.org/
-23 verbose request id 1dbb154260ccdae3
-24 verbose url raw /send-grid
-25 verbose url resolving [ 'https://registry.npmjs.org/', './send-grid' ]
-26 verbose url resolved https://registry.npmjs.org/send-grid
-27 verbose request where is https://registry.npmjs.org/send-grid
-28 info trying registry request attempt 1 at 17:19:59
-29 http GET https://registry.npmjs.org/send-grid
-30 http 404 https://registry.npmjs.org/send-grid
-31 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-31 verbose headers   'content-type': 'application/json',
-31 verbose headers   'cache-control': 'max-age=0',
-31 verbose headers   'content-length': '51',
-31 verbose headers   'accept-ranges': 'bytes',
-31 verbose headers   date: 'Sat, 01 Aug 2015 17:19:59 GMT',
-31 verbose headers   via: '1.1 varnish',
-31 verbose headers   age: '0',
-31 verbose headers   connection: 'keep-alive',
-31 verbose headers   'x-served-by': 'cache-jfk1034-JFK',
-31 verbose headers   'x-cache': 'MISS',
-31 verbose headers   'x-cache-hits': '0',
-31 verbose headers   'x-timer': 'S1438449599.818108,VS0,VE95' }
-32 silly registry.get cb [ 404,
-32 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-32 silly registry.get     'content-type': 'application/json',
-32 silly registry.get     'cache-control': 'max-age=0',
-32 silly registry.get     'content-length': '51',
-32 silly registry.get     'accept-ranges': 'bytes',
-32 silly registry.get     date: 'Sat, 01 Aug 2015 17:19:59 GMT',
-32 silly registry.get     via: '1.1 varnish',
-32 silly registry.get     age: '0',
-32 silly registry.get     connection: 'keep-alive',
-32 silly registry.get     'x-served-by': 'cache-jfk1034-JFK',
-32 silly registry.get     'x-cache': 'MISS',
-32 silly registry.get     'x-cache-hits': '0',
-32 silly registry.get     'x-timer': 'S1438449599.818108,VS0,VE95' } ]
-33 silly lockFile ab71661d-send-grid send-grid@
-34 silly lockFile ab71661d-send-grid send-grid@
-35 error 404 404 Not Found: send-grid
-35 error 404
-35 error 404 'send-grid' is not in the npm registry.
-35 error 404 You should bug the author to publish it
-35 error 404
-35 error 404 Note that you can also install from a
-35 error 404 tarball, folder, or http url, or git url.
-36 error System Linux 3.16.0-34-generic
-37 error command "/home/codio/.nvm/v0.10.33/bin/node" "/home/codio/.nvm/v0.10.33/bin/npm" "install" "send-grid"
-38 error cwd /home/codio/workspace/mtg-node
-39 error node -v v0.10.33
-40 error npm -v 1.4.28
-41 error code E404
-42 verbose exit [ 1, true ]
+4 warn package.json mtg-node@1.0.0 No README data
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'ssendgrid', null ]
+7 verbose cache add name=undefined spec="ssendgrid" args=["ssendgrid",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: 'ssendgrid',
+8 verbose parsed url   path: 'ssendgrid',
+8 verbose parsed url   href: 'ssendgrid' }
+9 silly lockFile d7daa263-ssendgrid ssendgrid
+10 verbose lock ssendgrid /Users/jakobhartman/.npm/d7daa263-ssendgrid.lock
+11 silly lockFile d7daa263-ssendgrid ssendgrid
+12 silly lockFile d7daa263-ssendgrid ssendgrid
+13 verbose addNamed [ 'ssendgrid', '' ]
+14 verbose addNamed [ null, '*' ]
+15 silly lockFile fe254375-ssendgrid ssendgrid@
+16 verbose lock ssendgrid@ /Users/jakobhartman/.npm/fe254375-ssendgrid.lock
+17 silly addNameRange { name: 'ssendgrid', range: '*', hasData: false }
+18 verbose request where is /ssendgrid
+19 verbose request registry https://registry.npmjs.org/
+20 verbose request id 01bac7679f83968f
+21 verbose url raw /ssendgrid
+22 verbose url resolving [ 'https://registry.npmjs.org/', './ssendgrid' ]
+23 verbose url resolved https://registry.npmjs.org/ssendgrid
+24 verbose request where is https://registry.npmjs.org/ssendgrid
+25 info trying registry request attempt 1 at 15:53:53
+26 http GET https://registry.npmjs.org/ssendgrid
+27 http 404 https://registry.npmjs.org/ssendgrid
+28 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+28 verbose headers   'content-type': 'application/json',
+28 verbose headers   'cache-control': 'max-age=0',
+28 verbose headers   'content-length': '51',
+28 verbose headers   'accept-ranges': 'bytes',
+28 verbose headers   date: 'Sun, 02 Aug 2015 20:53:53 GMT',
+28 verbose headers   via: '1.1 varnish',
+28 verbose headers   age: '0',
+28 verbose headers   connection: 'keep-alive',
+28 verbose headers   'x-served-by': 'cache-dfw1823-DFW',
+28 verbose headers   'x-cache': 'MISS',
+28 verbose headers   'x-cache-hits': '0',
+28 verbose headers   'x-timer': 'S1438548833.777904,VS0,VE193' }
+29 silly registry.get cb [ 404,
+29 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+29 silly registry.get     'content-type': 'application/json',
+29 silly registry.get     'cache-control': 'max-age=0',
+29 silly registry.get     'content-length': '51',
+29 silly registry.get     'accept-ranges': 'bytes',
+29 silly registry.get     date: 'Sun, 02 Aug 2015 20:53:53 GMT',
+29 silly registry.get     via: '1.1 varnish',
+29 silly registry.get     age: '0',
+29 silly registry.get     connection: 'keep-alive',
+29 silly registry.get     'x-served-by': 'cache-dfw1823-DFW',
+29 silly registry.get     'x-cache': 'MISS',
+29 silly registry.get     'x-cache-hits': '0',
+29 silly registry.get     'x-timer': 'S1438548833.777904,VS0,VE193' } ]
+30 silly lockFile fe254375-ssendgrid ssendgrid@
+31 silly lockFile fe254375-ssendgrid ssendgrid@
+32 error 404 404 Not Found: ssendgrid
+32 error 404
+32 error 404 'ssendgrid' is not in the npm registry.
+32 error 404 You should bug the author to publish it
+32 error 404 It was specified as a dependency of 'mtg-node'
+32 error 404
+32 error 404 Note that you can also install from a
+32 error 404 tarball, folder, or http url, or git url.
+33 error System Darwin 14.5.0
+34 error command "node" "/usr/local/bin/npm" "install" "ssendgrid"
+35 error cwd /Users/jakobhartman/Desktop/mtg-node
+36 error node -v v0.10.33
+37 error npm -v 1.4.28
+38 error code E404
+39 verbose exit [ 1, true ]

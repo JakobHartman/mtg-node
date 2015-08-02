@@ -20,7 +20,6 @@ function handleRequest(request, response){
 		//Disptach
 		dispatcher.dispatch(request, response);
 	} catch(err) {
-		console.log('here');
 		console.log(err);
 	}
 }
@@ -58,6 +57,12 @@ dispatcher.onPost("/validateEmail",function(req,res){
 
 //A sample GET request
 dispatcher.onGet('/', function(req, res) {
+  fs.readFile('assets/css/index.css',function(er,html){
+    if(er){
+      console.log(er)
+    }
+    res.writeHeader(200, {"Content-Type": "text/css"});
+  })
 	fs.readFile('assets/views/index.html',function(er,html){
     if(er){
       console.log(er)
