@@ -9,7 +9,7 @@ var sendgrid = require("sendgrid")("Jakobhartman","Dangers1177");
 
 var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/');
 var cardCount = 15418;
-var PORT = 8080;
+var PORT = 80;
 
 String.prototype.replaceAt=function(index, character) {
     return this.substr(0, index) + character + this.substr(index+character.length);
