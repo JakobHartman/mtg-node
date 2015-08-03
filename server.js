@@ -91,7 +91,7 @@ function getParams(urlText){
 }
 
 //A sample POST request
-dispatcher.onPost('/card', function(req, res) {
+dispatcher.onGet('/card', function(req, res) {
 	var params = getParams(req.url);
   console.log(req.url)
   console.log(params)
