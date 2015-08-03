@@ -57,12 +57,6 @@ dispatcher.onPost("/validateEmail",function(req,res){
 
 //A sample GET request
 dispatcher.onGet('/', function(req, res) {
-  fs.readFile('assets/css/index.css',function(er,html){
-    if(er){
-      console.log(er)
-    }
-    res.writeHeader(200, {"Content-Type": "text/css"});
-  })
 	fs.readFile('assets/views/index.html',function(er,html){
     if(er){
       console.log(er)
@@ -93,29 +87,27 @@ function getParams(urlText){
 //A sample POST request
 dispatcher.onGet('/card', function(req, res) {
 	var params = getParams(req.url);
-  if(isEmpty(params)){
-    res.end("Invalid string")
-  }
+  res.end()
 	var card = params.text;
 	var channel = params.channel_name;
 	var team = params.team_id;
 	var client = '';
-
   var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/");
   slackURL.once("value",function(child){
     client = child.child(team).val()
-    if(card === 'random') {
+    
+  })
+  if(card === 'random') {
       getRandomCard(channel, client);
-      res.end()
+      
     }else if(card === 'random10'){
       for(var i = 0;i < 10;i++){
         getRandomCard(channel, client)
       }
-      res.end()
     } else{
       getCard(card,channel,client,res);
+
     }
-  })
  })
 
 function postToSlack(channel, client, cardURI) {
