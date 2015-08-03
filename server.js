@@ -95,7 +95,7 @@ dispatcher.onPost('/card', function(req, res) {
 	var params = getParams(req.url);
   console.log(req.url)
   console.log(params)
-  if(params == {}){
+  if(isEmpty(params)){
     res.end("Invalid string")
   }
 	var card = JSON.parse(params.text);
@@ -181,6 +181,15 @@ function getCard(card,channel,client,res){
       }
     })
 
+}
+
+function isEmpty(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true;
 }
 
 function sanitizeName(card){
