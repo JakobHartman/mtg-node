@@ -95,9 +95,7 @@ dispatcher.onGet('/card', function(req, res) {
   var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/");
   slackURL.once("value",function(child){
     client = child.child(team).val()
-    
-  })
-  if(card === 'random') {
+    if(card === 'random') {
       getRandomCard(channel, client);
       
     }else if(card === 'random10'){
@@ -108,6 +106,7 @@ dispatcher.onGet('/card', function(req, res) {
       getCard(card,channel,client,res);
 
     }
+  })
  })
 
 function postToSlack(channel, client, cardURI) {
