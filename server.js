@@ -96,7 +96,7 @@ dispatcher.onGet('/card', function(req, res) {
   if(isEmpty(params)){
     res.end("Invalid string")
   }
-  console.log(params)
+  console.log(params[0])
 	var card = JSON.parse(params.text);
   console.log(card)
 	var channel = JSON.parse(params.channel_name);
