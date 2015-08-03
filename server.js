@@ -93,14 +93,15 @@ function getParams(urlText){
 //A sample POST request
 dispatcher.onGet('/card', function(req, res) {
 	var params = getParams(req.url);
-  console.log(req.url)
-  console.log(params)
   if(isEmpty(params)){
     res.end("Invalid string")
   }
 	var card = JSON.parse(params.text);
+  console.log(card)
 	var channel = JSON.parse(params.channel_name);
+  console.log(channel)
 	var team = JSON.parse(params.team_id);
+  console.log(team)
 	var client = '';
 
   var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/");
