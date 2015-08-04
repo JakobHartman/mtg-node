@@ -81,7 +81,7 @@ dispatcher.onGet('/register', function(req, res) {
 
 function getParams(urlText){
   urlText = urlText.split("&")
-  str = {token:"",team_id:"",team_domain:"",channel_id:"",channel_name:"",user_id:"",user_name:"",command:""}
+  var str = {token:"",team_id:"",team_domain:"",channel_id:"",channel_name:"",user_id:"",user_name:"",command:""}
   for(var i = 0;i < urlText.length;i++){
     var index = urlText[i].indexOf("=");
     urlText[i] = urlText[i].substring(index + 1,urlText[i].length - 1);
