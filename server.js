@@ -147,11 +147,14 @@ function getRandomCard(channel, client) {
     ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/' + cName + "/ids");
     ref.once("value",function(child){
       var length = Object.keys(child.val()).length;
-
       var rnNum = Math.floor((Math.random() * (length - 1)));
-      var mId = Object.keys(child.val())[rnNum];
-      var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card';
-      postToSlack(channel, client, uri);
+      ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/' + cName + "/ids/" + Object.keys(child.val())[rnNum]);
+      ref.once("value",function(child){
+        var mId = child.val()
+        var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card';
+        postToSlack(channel, client, uri);
+      })
+      
     })
     
 	})
