@@ -80,8 +80,24 @@ dispatcher.onGet('/register', function(req, res) {
 
 
 function getParams(urlText){
-	var urlParts = url.parse(urlText, true);
-	return urlParts.query;
+  urlText = document.getElementById("g")
+  urlText = urlText.value
+  urlText = urlText.split("&")
+  str = {token:"",team_id:"",team_domain:"",channel_id:"",channel_name:"",user_id:"",user_name:"",command:""}
+  for(var i = 0;i < urlText.length;i++){
+    var index = urlText[i].indexOf("=");
+    urlText[i] = urlText[i].substring(index + 1,urlText[i].length - 1);
+  }
+  str.token = urlText[0];
+  str.team_id = urlText[1];
+  str.team_domain = urlText[2];
+  str.channel_id = urlText[3];
+  str.channel_name = urlText[4];
+  str.user_id = urlText[5];
+  str.user_name = urlText[6];
+  str.command = urlText[7];
+
+    alert(JSON.stringify(str))
 }
 
 //A sample POST request
