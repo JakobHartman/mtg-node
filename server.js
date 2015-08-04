@@ -146,7 +146,8 @@ function getRandomCard(channel, client) {
 		var cName = Object.keys(cards)[rNum];
     ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/' + cName + "/ids");
     ref.once("value",function(child){
-      var length = child.val().length;
+      var length = child.val()
+      console.log(length)
       var rnNum = Math.floor((Math.random() * (length - 1)));
       var mId = cards[cName].ids[Object.keys(cards[cName].ids)[rnNum]];
       var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card';
