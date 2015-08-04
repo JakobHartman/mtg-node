@@ -94,8 +94,6 @@ function getParams(urlText){
   str.user_id = urlText[5];
   str.user_name = urlText[6];
   str.command = urlText[7];
-
-    alert(JSON.stringify(str))
 }
 
 //A sample POST request
