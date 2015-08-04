@@ -147,17 +147,12 @@ function getRandomCard(channel, client) {
     var length = child.child(cName).child("ids").numChildren();
 		var rnNum = Math.floor((Math.random() * (length - 1)));
 		var mId = cards[cName].ids[Object.keys(cards[cName].ids)[rnNum]];
-    console.log("Length: " + length + " Index: " + rnNum + " MID: " + mId + " Card: " + cName)
 		var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card';
-		if(mId == undefined){
-
-    }else{
-      postToSlack(channel, client, uri);
-    }
+    postToSlack(channel, client, uri);
 	})
 }
 
-function getCard(card,channel,client,res){
+function getCard(card,channel,client){
   
   card = sanitizeName(card)
   var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/' + card + "/ids");
@@ -166,13 +161,9 @@ function getCard(card,channel,client,res){
           var length = child.numChildren();
           var rnNum = Math.floor((Math.random() * (length - 1)));
           var getIds = child.val()
-          console.log(getIds)
           var key = Object.keys(getIds)[rnNum]
-          console.log(key)
           var mId = getIds[key]
-          console.log("Length: " + length + " Index: " + rnNum + " MID: " + mId + " Card: " + card)
           var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card';
-          res.end();
           if(mId == undefined){
             res.end("Could not find Multiverse ID\n")
           }else{
