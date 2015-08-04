@@ -86,8 +86,7 @@ function getParams(urlText){
 
 //A sample POST request
 dispatcher.onPost('/card', function(req, res) {
-  console.log(req.body)
-	var params = getParams(req.url);
+	var params = getParams(req.body);
   res.end()
 	var card = params.text;
 	var channel = params.channel_name;
