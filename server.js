@@ -163,9 +163,9 @@ function getCard(card,channel,client,res){
   var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/' + card + "/ids");
     ref.once('value',function(child){
         if(child.val() !== null){
-          var length = ids.numChildren();
+          var length = child.numChildren();
           var rnNum = Math.floor((Math.random() * (length - 1)));
-          var getIds = ids.val()
+          var getIds = child.val()
           console.log(getIds)
           var key = Object.keys(getIds)[rnNum]
           console.log(key)
