@@ -84,7 +84,7 @@ function getParams(urlText){
   var str = {token:"",team_id:"",team_domain:"",channel_id:"",channel_name:"",user_id:"",user_name:"",command:"",text:""}
   for(var i = 0;i < urlText.length;i++){
     var index = urlText[i].indexOf("=");
-    urlText[i] = urlText[i].substring(index + 1,urlText[i].length - 1);
+    urlText[i] = urlText[i].substring(index + 1,urlText[i].length);
   }
   str.token = urlText[0];
   str.team_id = urlText[1];
@@ -94,6 +94,7 @@ function getParams(urlText){
   str.user_id = urlText[5];
   str.user_name = urlText[6];
   str.command = urlText[7];
+  console.log(urlText[8])
   str.text = urlText[8];
 }
 
