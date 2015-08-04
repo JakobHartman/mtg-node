@@ -92,9 +92,9 @@ dispatcher.onGet('/card', function(req, res) {
 	var channel = params.channel_name;
 	var team = params.team_id;
 	var client = '';
-  var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/");
+  var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/" + team);
   slackURL.once("value",function(child){
-    client = child.child(team).val()
+    client = child.val()
     if(card === 'random') {
       getRandomCard(channel, client);
       
