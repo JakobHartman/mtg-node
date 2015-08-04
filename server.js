@@ -7,7 +7,7 @@ var changeCase = require('change-case')
 var fs = require("fs")
 var sendgrid = require("sendgrid")("Jakobhartman","Dangers1177"); 
 
-var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/');
+
 var cardCount = 15418;
 var PORT = process.env.PORT || 5000;
 
@@ -139,6 +139,7 @@ function postToSlack(channel, client, cardURI) {
 }
 
 function getRandomCard(channel, client) {
+  var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/');
 	ref.once('value', function(child) {
 		var rNum = Math.floor((Math.random() * cardCount) + 0);
 		var cards = child.val();
@@ -159,10 +160,9 @@ function getRandomCard(channel, client) {
 function getCard(card,channel,client,res){
   
   card = sanitizeName(card)
-  console.log(card)
+  var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/' + card + "/ids");
     ref.once('value',function(child){
-        var ids = child.child(card).child("ids");
-        if(ids.val() !== null){
+        if(child.val() !== null){
           var length = ids.numChildren();
           var rnNum = Math.floor((Math.random() * (length - 1)));
           var getIds = ids.val()
