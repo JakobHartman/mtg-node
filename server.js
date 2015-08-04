@@ -85,7 +85,7 @@ function getParams(urlText){
 }
 
 //A sample POST request
-dispatcher.onGet('/card', function(req, res) {
+dispatcher.onPost('/card', function(req, res) {
   console.log(req.body)
 	var params = getParams(req.url);
   res.end()
@@ -111,10 +111,7 @@ dispatcher.onGet('/card', function(req, res) {
  })
 
 function postToSlack(channel, client, cardURI) {
-	console.log('Client: ' + client);
 	var slack = require('slack-notify')('https://hooks.slack.com/services/' + client);
-
-	console.log('Channel: ' + channel);
 	slack.send({
 		channel: '#' + channel,
 		text: cardURI,
