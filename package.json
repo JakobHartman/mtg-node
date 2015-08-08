@@ -16,6 +16,7 @@
     "httpdispatcher": "0.4.0",
     "jquery": "2.1.4",
     "jsdom": "3.1.2",
+    "redis": "^0.12.1",
     "sendgrid": "1.9.2",
     "slack-notify": "0.1.4",
     "url": "0.10.3"

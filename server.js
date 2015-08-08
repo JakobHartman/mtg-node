@@ -7,13 +7,19 @@ var bodyParser = require('body-parser');
 var sendgrid = require("sendgrid")("Jakobhartman","Dangers1177"); 
 var express = require("express")
 var app = express()
+var users;
+
+
 
 
 var cardCount = 15418;
 var PORT = process.env.PORT || 5000;
 var server = app.listen(PORT, function() {
-	//Callback triggered when server is successfully listening. Hurray!
 	console.log('Listening on port ' + PORT);
+  var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/")
+  slackURL.on("value",function(child){
+    users = child.val();
+  })
 });
 
 
@@ -64,48 +70,19 @@ app.get('/register', function(req, res) {
   })
 })
 
-
-function getParams(urlText){
-  urlText = urlText.split("&")
-  console.log(urlText)
-  var str = {token:"",team_id:"",team_domain:"",channel_id:"",channel_name:"",user_id:"",user_name:"",command:"",text:""}
-  for(var i = 0;i < urlText.length;i++){
-    var index = urlText[i].indexOf("=");
-    urlText[i] = urlText[i].substring(index + 1,urlText[i].length);
-  }
-  str.token = urlText[0];
-  str.team_id = urlText[1];
-  str.team_domain = urlText[2];
-  str.channel_id = urlText[3];
-  str.channel_name = urlText[4];
-  str.user_id = urlText[5];
-  str.user_name = urlText[6];
-  str.command = urlText[7];
-  str.text = urlText[8];
-
-  return str
-}
-
 //A sample POST request
 app.get('/card', function(req, res) {
 	var params = req.query;
   res.end()
-	var card = params.text;
-	var channel = params.channel_name;
-	var team = params.team_id;
-	var client = '';
-  var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/" + team);
-  slackURL.once("value",function(child){
-    client = child.val()
-    if(card === 'random') {
-      getRandomCard(channel, client);
+    if(params.text === 'random') {
+      getRandomCard(params.channel_name, users[params.team_id]);
       
-    }else if(card === 'random10'){
+    }else if(params.text === 'random10'){
       for(var i = 0;i < 10;i++){
-        getRandomCard(channel, client)
+        getRandomCard(params.channel_name, users[params.team_id])
       }
     } else{
-      getCard(card,channel,client,res);
+      getCard(params.text,params.channel_name,users[params.team_id]);
 
     }
   })
