@@ -18,10 +18,9 @@ var server = app.listen(PORT, function() {
 
 //For all your static (js/css/images/etc.) set the directory name (relative path).
 app.use(express.static(__dirname + '/assets'));
-app.configure(function(){
-  app.use(express.bodyParser());
-  app.use(app.router);
-});
+app.use(express.bodyParser());
+app.use(app.router);
+
 
 app.post("/register",function(req,res){
   console.log("Sending Mail")
