@@ -87,7 +87,7 @@ function getParams(urlText){
 //A sample POST request
 app.post('/card', function(req, res) {
 	// var params = getParams(req.body);
-  console.log("response body: " + req.body + "response params: " + req.params + "reponse query: " + req.query)
+  console.log("response body: " + req.body + "response params: " + JSON.stringify(req.params) + "reponse query: " + JSON.stringify(req.query));
   res.end()
 	// var card = params.text;
 	// var channel = params.channel_name;
