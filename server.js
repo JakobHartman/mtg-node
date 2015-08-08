@@ -85,7 +85,6 @@ app.get('/card', function(req, res) {
       getCard(params.text,params.channel_name,users[params.team_id]);
 
     }
-  })
  })
 
 function postToSlack(channel, client, cardURI) {
