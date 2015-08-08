@@ -66,50 +66,49 @@ app.get('/register', function(req, res) {
 
 
 function getParams(urlText){
-  //urlText = urlText.split("&")
+  urlText = urlText.split("&")
   console.log(urlText)
   var str = {token:"",team_id:"",team_domain:"",channel_id:"",channel_name:"",user_id:"",user_name:"",command:"",text:""}
-  // for(var i = 0;i < urlText.length;i++){
-  //   var index = urlText[i].indexOf("=");
-  //   urlText[i] = urlText[i].substring(index + 1,urlText[i].length);
-  // }
-  // str.token = urlText[0];
-  // str.team_id = urlText[1];
-  // str.team_domain = urlText[2];
-  // str.channel_id = urlText[3];
-  // str.channel_name = urlText[4];
-  // str.user_id = urlText[5];
-  // str.user_name = urlText[6];
-  // str.command = urlText[7];
-  // str.text = urlText[8];
+  for(var i = 0;i < urlText.length;i++){
+    var index = urlText[i].indexOf("=");
+    urlText[i] = urlText[i].substring(index + 1,urlText[i].length);
+  }
+  str.token = urlText[0];
+  str.team_id = urlText[1];
+  str.team_domain = urlText[2];
+  str.channel_id = urlText[3];
+  str.channel_name = urlText[4];
+  str.user_id = urlText[5];
+  str.user_name = urlText[6];
+  str.command = urlText[7];
+  str.text = urlText[8];
 
   return str
 }
 
 //A sample POST request
 app.get('/card', function(req, res) {
-	// var params = getParams(req.body);
-  console.log("response body: " + JSON.stringify(req.body) + "response params: " + JSON.stringify(req.params) + "reponse query: " + JSON.stringify(req.query));
+	var params = req.query;
   res.end()
-	// var card = params.text;
-	// var channel = params.channel_name;
-	// var team = params.team_id;
-	// var client = '';
-  // var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/" + team);
-  // slackURL.once("value",function(child){
-  //   client = child.val()
-  //   if(card === 'random') {
-  //     getRandomCard(channel, client);
+	var card = params.text;
+	var channel = params.channel_name;
+	var team = params.team_id;
+	var client = '';
+  var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/" + team);
+  slackURL.once("value",function(child){
+    client = child.val()
+    if(card === 'random') {
+      getRandomCard(channel, client);
       
-  //   }else if(card === 'random10'){
-  //     for(var i = 0;i < 10;i++){
-  //       getRandomCard(channel, client)
-  //     }
-  //   } else{
-  //     getCard(card,channel,client,res);
+    }else if(card === 'random10'){
+      for(var i = 0;i < 10;i++){
+        getRandomCard(channel, client)
+      }
+    } else{
+      getCard(card,channel,client,res);
 
-  //   }
-  // })
+    }
+  })
  })
 
 function postToSlack(channel, client, cardURI) {
