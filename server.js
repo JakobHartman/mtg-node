@@ -8,7 +8,7 @@ var sendgrid = require("sendgrid")("Jakobhartman","Dangers1177");
 var express = require("express")
 var app = express()
 var users;
-
+var clock;
 
 
 
@@ -73,6 +73,10 @@ app.get('/register', function(req, res) {
 //A sample POST request
 app.get('/card', function(req, res) {
 	var params = req.query;
+  clock = 0;
+  setInterval(function(){
+    clock++;
+  },1000)
   res.end()
     if(params.text === 'random') {
       getRandomCard(params.channel_name, users[params.team_id]);
@@ -91,7 +95,7 @@ function postToSlack(channel, client, cardURI) {
 	var slack = require('slack-notify')('https://hooks.slack.com/services/' + client);
 	slack.send({
 		channel: '#' + channel,
-		text: cardURI,
+		text: cardURI + "\n" + clock + " seconds to complete",
 		username: 'GathererBot'
 	});
 
