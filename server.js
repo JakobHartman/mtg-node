@@ -1,41 +1,25 @@
 'use strict';
-var http = require('http');
-var dispatcher = require('httpdispatcher');
 var url = require('url');
 var Firebase = require('firebase');
 var changeCase = require('change-case')
 var fs = require("fs")
 var sendgrid = require("sendgrid")("Jakobhartman","Dangers1177"); 
+var express = require("express")
+var app = express()
 
 
 var cardCount = 15418;
 var PORT = process.env.PORT || 5000;
-
-String.prototype.replaceAt=function(index, character) {
-    return this.substr(0, index) + character + this.substr(index+character.length);
-}
-
-function handleRequest(request, response){
-	try {
-		//Disptach
-		dispatcher.dispatch(request, response);
-	} catch(err) {
-		console.log(err);
-	}
-}
-
-var server = http.createServer(handleRequest);
-
-server.listen(PORT, function() {
+var server = app.listen(PORT, function() {
 	//Callback triggered when server is successfully listening. Hurray!
 	console.log('Listening on port ' + PORT);
 });
 
 
 //For all your static (js/css/images/etc.) set the directory name (relative path).
-dispatcher.setStatic('/');
+app.use(express.static(__dirname + '/assets'));
 
-dispatcher.onPost("/register",function(req,res){
+app.post("/register",function(req,res){
   console.log("Sending Mail")
     var payload   = {
       to      : 'Jakobhartman@hotmail.com',
@@ -51,12 +35,12 @@ dispatcher.onPost("/register",function(req,res){
     res.end()
 });
 
-dispatcher.onPost("/validateEmail",function(req,res){
+app.post("/validateEmail",function(req,res){
   
 })
 
 //A sample GET request
-dispatcher.onGet('/', function(req, res) {
+app.get('/', function(req, res) {
 	fs.readFile('assets/views/index.html',function(er,html){
     if(er){
       console.log(er)
@@ -67,7 +51,7 @@ dispatcher.onGet('/', function(req, res) {
   })
 })
 
-dispatcher.onGet('/register', function(req, res) {
+app.get('/register', function(req, res) {
 	fs.readFile('assets/views/register.html',function(er,html){
     if(er){
       console.log(er)
@@ -80,49 +64,50 @@ dispatcher.onGet('/register', function(req, res) {
 
 
 function getParams(urlText){
-  urlText = urlText.split("&")
+  //urlText = urlText.split("&")
+  console.log(urlText)
   var str = {token:"",team_id:"",team_domain:"",channel_id:"",channel_name:"",user_id:"",user_name:"",command:"",text:""}
-  for(var i = 0;i < urlText.length;i++){
-    var index = urlText[i].indexOf("=");
-    urlText[i] = urlText[i].substring(index + 1,urlText[i].length);
-  }
-  str.token = urlText[0];
-  str.team_id = urlText[1];
-  str.team_domain = urlText[2];
-  str.channel_id = urlText[3];
-  str.channel_name = urlText[4];
-  str.user_id = urlText[5];
-  str.user_name = urlText[6];
-  str.command = urlText[7];
-  str.text = urlText[8];
+  // for(var i = 0;i < urlText.length;i++){
+  //   var index = urlText[i].indexOf("=");
+  //   urlText[i] = urlText[i].substring(index + 1,urlText[i].length);
+  // }
+  // str.token = urlText[0];
+  // str.team_id = urlText[1];
+  // str.team_domain = urlText[2];
+  // str.channel_id = urlText[3];
+  // str.channel_name = urlText[4];
+  // str.user_id = urlText[5];
+  // str.user_name = urlText[6];
+  // str.command = urlText[7];
+  // str.text = urlText[8];
 
   return str
 }
 
 //A sample POST request
-dispatcher.onPost('/card', function(req, res) {
-	var params = getParams(req.body);
-  console.log("response body:" + req.body)
+app.post('/card', function(req, res) {
+	// var params = getParams(req.body);
+  console.log("response body: " + req.query.text)
   res.end()
-	var card = params.text;
-	var channel = params.channel_name;
-	var team = params.team_id;
-	var client = '';
-  var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/" + team);
-  slackURL.once("value",function(child){
-    client = child.val()
-    if(card === 'random') {
-      getRandomCard(channel, client);
+	// var card = params.text;
+	// var channel = params.channel_name;
+	// var team = params.team_id;
+	// var client = '';
+  // var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/" + team);
+  // slackURL.once("value",function(child){
+  //   client = child.val()
+  //   if(card === 'random') {
+  //     getRandomCard(channel, client);
       
-    }else if(card === 'random10'){
-      for(var i = 0;i < 10;i++){
-        getRandomCard(channel, client)
-      }
-    } else{
-      getCard(card,channel,client,res);
+  //   }else if(card === 'random10'){
+  //     for(var i = 0;i < 10;i++){
+  //       getRandomCard(channel, client)
+  //     }
+  //   } else{
+  //     getCard(card,channel,client,res);
 
-    }
-  })
+  //   }
+  // })
  })
 
 function postToSlack(channel, client, cardURI) {
@@ -205,4 +190,8 @@ function sanitizeName(card){
   card = card.replace("Of","of");
   card = card.replace("The","the");
   return card
+}
+
+String.prototype.replaceAt=function(index, character) {
+    return this.substr(0, index) + character + this.substr(index+character.length);
 }
