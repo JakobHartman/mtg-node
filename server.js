@@ -87,7 +87,7 @@ function getParams(urlText){
 }
 
 //A sample POST request
-app.post('/card', function(req, res) {
+app.get('/card', function(req, res) {
 	// var params = getParams(req.body);
   console.log("response body: " + JSON.stringify(req.body) + "response params: " + JSON.stringify(req.params) + "reponse query: " + JSON.stringify(req.query));
   res.end()
