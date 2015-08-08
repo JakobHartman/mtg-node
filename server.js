@@ -3,6 +3,7 @@ var url = require('url');
 var Firebase = require('firebase');
 var changeCase = require('change-case')
 var fs = require("fs")
+var bodyParser = require('body-parser');
 var sendgrid = require("sendgrid")("Jakobhartman","Dangers1177"); 
 var express = require("express")
 var app = express()
@@ -18,9 +19,7 @@ var server = app.listen(PORT, function() {
 
 //For all your static (js/css/images/etc.) set the directory name (relative path).
 app.use(express.static(__dirname + '/assets'));
-app.use(express.bodyParser());
-app.use(app.router);
-
+app.use(bodyParser.json()); 
 
 app.post("/register",function(req,res){
   console.log("Sending Mail")
