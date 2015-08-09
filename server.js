@@ -2,17 +2,13 @@
 var Firebase = require('firebase');
 var changeCase = require('change-case')
 var fs = require("fs")
-var bodyParser = require('body-parser');
 var sendgrid = require("sendgrid")("Jakobhartman","Dangers1177"); 
 var express = require("express")
 var app = express()
 var users;
-var clock;
-
-
-
 var cardCount = 15418;
-var PORT = process.env.PORT || 5000;
+var PORT = process.env.PORT || 8080;
+
 var server = app.listen(PORT, function() {
 	console.log('Listening on port ' + PORT);
   var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/")
@@ -24,7 +20,6 @@ var server = app.listen(PORT, function() {
 
 //For all your static (js/css/images/etc.) set the directory name (relative path).
 app.use(express.static(__dirname + '/assets'));
-app.use(bodyParser.json()); 
 
 app.post("/register",function(req,res){
   console.log("Sending Mail")
@@ -142,15 +137,6 @@ function getCard(card,channel,client){
       }
     })
 
-}
-
-function isEmpty(obj) {
-    for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
-            return false;
-    }
-
-    return true;
 }
 
 function sanitizeName(card){
