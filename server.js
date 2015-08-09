@@ -8,7 +8,7 @@ var app = express()
 var users;
 var cardCount = 15418;
 var PORT = process.env.PORT || 8080;
-var slack;
+var slack = require('slack-notify');
 
 var server = app.listen(PORT, function() {
 	console.log('Listening on port ' + PORT);
@@ -68,7 +68,7 @@ app.get('/register', function(req, res) {
 //A sample POST request
 app.get('/card', function(req, res) {
 	var params = req.query;
-  slack = require('slack-notify')('https://hooks.slack.com/services/' + users[params.team_id]);
+  slack = slack('https://hooks.slack.com/services/' + users[params.team_id]);
   slack.onError = function(err) {
     console.log(err.toString());
   };
