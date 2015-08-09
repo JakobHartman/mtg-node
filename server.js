@@ -1,5 +1,4 @@
 'use strict';
-var url = require('url');
 var Firebase = require('firebase');
 var changeCase = require('change-case')
 var fs = require("fs")
@@ -110,7 +109,7 @@ function getRandomCard(channel, client) {
 		var rNum = Math.floor((Math.random() * cardCount) + 0);
 		var cards = child.val();
 		var cName = Object.keys(cards)[rNum];
-    ref = ref.child(cName).child("ids")
+    ref = ref.child(cName + "/ids")
     ref.once("value",function(child){
       var length = Object.keys(child.val()).length;
       var rnNum = Math.floor((Math.random() * (length - 1)));
