@@ -8,6 +8,7 @@ var app = express()
 var users;
 var cardCount = 15418;
 var PORT = process.env.PORT || 8080;
+var slack;
 
 var server = app.listen(PORT, function() {
 	console.log('Listening on port ' + PORT);
@@ -67,34 +68,33 @@ app.get('/register', function(req, res) {
 //A sample POST request
 app.get('/card', function(req, res) {
 	var params = req.query;
+  slack = require('slack-notify')('https://hooks.slack.com/services/' + users[params.team_id]);
+  slack.onError = function(err) {
+    console.log(err.toString());
+  };
   res.end()
     if(params.text === 'random') {
-      getRandomCard(params.channel_name, users[params.team_id]);
+      getRandomCard(params.channel_name );
       
     }else if(params.text === 'random10'){
       for(var i = 0;i < 10;i++){
-        getRandomCard(params.channel_name, users[params.team_id])
+        getRandomCard(params.channel_name)
       }
     } else{
-      getCard(params.text,params.channel_name,users[params.team_id],res);
+      getCard(params.text,params.channel_name,res);
 
     }
  })
 
-function postToSlack(channel, client, cardURI) {
-	var slack = require('slack-notify')('https://hooks.slack.com/services/' + client);
+function postToSlack(channel, cardURI) {
 	slack.send({
 		channel: '#' + channel,
 		text: cardURI,
 		username: 'TestGathererBot'
 	});
-
-	slack.onError = function(err) {
-		console.log(err.toString());
-	};
 }
 
-function getRandomCard(channel, client) {
+function getRandomCard(channel) {
   var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/');
 		var rNum = Math.floor((Math.random() * cardCount) + 0);
     ref.once("value",function(child){
@@ -112,7 +112,7 @@ function getRandomCard(channel, client) {
 		
 }
 
-function getCard(card,channel,client,res){  
+function getCard(card,channel,res){  
   card = sanitizeName(card)
   console.log(card)
     var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/').orderByChild("name").startAt(card).endAt(card).limitToFirst(1);
