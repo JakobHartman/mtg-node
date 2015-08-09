@@ -172,6 +172,9 @@ function sanitizeName(card){
   if(s[0] != "To"){
     card = card.replace("To","to");
   }
+  if(s[0] != "This"){
+    card = card.replace("This","this");
+  }
   
   card = card.replace("Of","of");
   card = card.replace("The","the");
