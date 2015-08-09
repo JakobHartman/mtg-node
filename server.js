@@ -168,6 +168,11 @@ function sanitizeName(card){
   if(hiphen != -1){
     card = card.replaceAt(hiphen,"-")
   }
+  var s = card.split(" ")
+  if(s[0] != "To"){
+    card = card.replace("To","to");
+  }
+  
   card = card.replace("Of","of");
   card = card.replace("The","the");
   return card
