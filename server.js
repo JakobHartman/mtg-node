@@ -142,6 +142,7 @@ function getCard(card,channel,client,res){
 function sanitizeName(card){
   var hiphen = card.indexOf("-");
   var period = card.indexOf(".");
+  var amper = card.indexOf("&");
   var indices;
   if(period != -1){
     indices = getIndexes(card,".");
@@ -149,10 +150,16 @@ function sanitizeName(card){
       card = card.replaceAt(indices[i]," ")
     };
   }
+  if(amper != -1){
+    card = card.replaceAt(amper," ");
+  }
   if(hiphen != -1){
     card = card.replaceAt(hiphen," ");
   }
   card = toTitleCase(card)
+  if(amper != -1){
+    card = card.replaceAt(amper,"&");
+  }
   if(period != -1){
     for (var i = 0; i < indices.length;i++) {
       card = card.replaceAt(indices[i],".")
