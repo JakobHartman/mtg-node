@@ -86,7 +86,7 @@ function postToSlack(channel, client, cardURI) {
 	slack.send({
 		channel: '#' + channel,
 		text: cardURI,
-		username: 'GathererBot'
+		username: 'TestGathererBot'
 	});
 
 	slack.onError = function(err) {
