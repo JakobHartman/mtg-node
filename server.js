@@ -119,9 +119,11 @@ function getCard(card,channel,client,res){
     ref.once('value',function(child){
         if(child.val() !== null){
           var data = child.val()
-          var cd = data[card]["ids"]
-          var length = Object.keys(cd)
-          var rnNum = Math.floor((Math.random() * length.length) - 1);
+          var cd = data[Object.keys(data)[0]]["ids"]
+          var length = Object.keys(cd).length
+          console.log("Number of Sets: " + length)
+          var rnNum = Math.floor(Math.random() * length);
+          console.log("Set Selected: " + rnNum)
           var key = cd["set"+rnNum]
           console.log(key)
           var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + key + '&type=card';
@@ -139,10 +141,23 @@ function getCard(card,channel,client,res){
 
 function sanitizeName(card){
   var hiphen = card.indexOf("-");
+  var period = card.indexOf(".");
+  var indices;
+  if(period != -1){
+    indices = getIndexes(card,".");
+    for (var i = 0; i < indices.length;i++) {
+      card = card.replaceAt(indices[i]," ")
+    };
+  }
   if(hiphen != -1){
     card = card.replaceAt(hiphen," ");
   }
-  card = changeCase.titleCase(card)
+  card = toTitleCase(card)
+  if(period != -1){
+    for (var i = 0; i < indices.length;i++) {
+      card = card.replaceAt(indices[i],".")
+    };
+  }
   if(hiphen != -1){
     card = card.replaceAt(hiphen,"-")
   }
@@ -153,4 +168,17 @@ function sanitizeName(card){
 
 String.prototype.replaceAt=function(index, character) {
     return this.substr(0, index) + character + this.substr(index+character.length);
+}
+
+function toTitleCase(str)
+{
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
+function getIndexes(str,char){
+  var indices = [];
+  for(var i=0; i<str.length;i++) {
+    if (str[i] === char) indices.push(i);
+  }
+  return indices;
 }
