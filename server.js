@@ -67,10 +67,6 @@ app.get('/register', function(req, res) {
 //A sample POST request
 app.get('/card', function(req, res) {
 	var params = req.query;
-  clock = 0;
-  setInterval(function(){
-    clock++;
-  },1000)
   res.end()
     if(params.text === 'random') {
       getRandomCard(params.channel_name, users[params.team_id]);
