@@ -76,7 +76,7 @@ app.get('/card', function(req, res) {
         getRandomCard(params.channel_name, users[params.team_id])
       }
     } else{
-      getCard(params.text,params.channel_name,users[params.team_id]);
+      getCard(params.text,params.channel_name,users[params.team_id],res);
 
     }
  })
@@ -112,7 +112,7 @@ function getRandomCard(channel, client) {
 		
 }
 
-function getCard(card,channel,client){  
+function getCard(card,channel,client,res){  
   card = sanitizeName(card)
   var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/' + card + "/ids");
     ref.once('value',function(child){
