@@ -1,6 +1,5 @@
 'use strict';
 var Firebase = require('firebase');
-var changeCase = require('change-case')
 var fs = require("fs")
 var sendgrid = require("sendgrid")("Jakobhartman","Dangers1177"); 
 var express = require("express")
@@ -77,10 +76,10 @@ app.get('/card', function(req, res) {
     console.log(err.toString());
   };
   res.end()
-    if(params.text === 'random') {
+    if(params.text == 'random') {
       getRandomCard(params.channel_name );
       
-    }else if(params.text === 'random10'){
+    }else if(params.text == 'random10'){
       for(var i = 0;i < 10;i++){
         getRandomCard(params.channel_name)
       }
