@@ -85,7 +85,7 @@ function postToSlack(channel, client, cardURI) {
 	var slack = require('slack-notify')('https://hooks.slack.com/services/' + client);
 	slack.send({
 		channel: '#' + channel,
-		text: cardURI + "\n" + clock + " seconds to complete",
+		text: cardURI,
 		username: 'GathererBot'
 	});
 
