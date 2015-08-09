@@ -12,6 +12,7 @@
     "express": "^4.13.3",
     "firebase": "2.2.8",
     "fs": "0.0.2",
+    "node-slack": "0.0.7",
     "sendgrid": "1.9.2",
     "slack-notify": "0.1.4"
   },
