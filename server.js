@@ -111,9 +111,9 @@ function getRandomCard(channel, client) {
 		var cName = Object.keys(cards)[rNum];
     ref = ref.child(cName + "/ids")
     ref.once("value",function(child){
-      // var length = Object.keys(child.val()).length;
-      // var rnNum = Math.floor((Math.random() * (length - 1)));
-      ref = ref.child(Object.keys(child.val())[0])
+      var length = Object.keys(child.val()).length;
+      var rnNum = Math.floor((Math.random() * (length - 1)));
+      ref = ref.child("set" + rNum)
       ref.once("value",function(child){
         var mId = child.val()
         var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card';
