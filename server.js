@@ -119,9 +119,11 @@ function getCard(card,channel,client,res){
     ref.once('value',function(child){
         if(child.val() !== null){
           var data = child.val()
-          var length = Object.keys(data[card]["ids"])
-          var rnNum = Math.floor((Math.random() * (length.length - 1)));
-          var key = length["set"+rnNum]
+          var cd = data[card]["ids"]
+          var length = Object.keys(cd)
+          var rnNum = Math.floor((Math.random() * length.length) - 1);
+          var key = cd["set"+rnNum]
+          console.log(key)
           var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + key + '&type=card';
           if(key == undefined){
             res.end("Could not find Multiverse ID\n")
