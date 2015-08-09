@@ -112,7 +112,7 @@ function getRandomCard(channel, client) {
     ref = ref.child(cName + "/ids")
     ref.once("value",function(child){
       var length = Object.keys(child.val()).length;
-      var rnNum = Math.floor((Math.random() * (length - 1)));
+      var rnNum = Math.floor((Math.random() * (1 - 1)));
       ref = ref.child(Object.keys(child.val())[rnNum])
       ref.once("value",function(child){
         var mId = child.val()
