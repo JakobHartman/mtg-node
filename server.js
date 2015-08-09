@@ -105,28 +105,23 @@ function postToSlack(channel, client, cardURI) {
 
 function getRandomCard(channel, client) {
   var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/');
-	ref.once('value', function(child) {
 		var rNum = Math.floor((Math.random() * cardCount) + 0);
-		var cards = child.val();
-		var cName = Object.keys(cards)[rNum];
-    ref = ref.child(cName + "/ids")
     ref.once("value",function(child){
-      var length = Object.keys(child.val()).length;
+      var cards = child.val();
+      var cName = Object.keys(cards)[rNum];
+      var length = Object.keys(cards[cName].ids).length
       var rnNum = Math.floor((Math.random() * (length - 1)));
-      ref = ref.child("set" + rNum)
-      ref.once("value",function(child){
-        var mId = child.val()
+      ref = ref.child(cName).child("ids").child("set" + rnNum);
+      ref.once("value",function(ch){
+        var mId = ch.val()
         var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card';
         postToSlack(channel, client, uri);
       })
-      
     })
-    
-	})
+		
 }
 
-function getCard(card,channel,client){
-  
+function getCard(card,channel,client){  
   card = sanitizeName(card)
   var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/' + card + "/ids");
     ref.once('value',function(child){
