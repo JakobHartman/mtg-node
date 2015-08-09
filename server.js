@@ -106,7 +106,7 @@ function getRandomCard(channel) {
       ref.once("value",function(ch){
         var mId = ch.val()
         var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card';
-        postToSlack(channel, client, uri);
+        postToSlack(channel, uri);
       })
     })
 		
@@ -130,7 +130,7 @@ function getCard(card,channel,res){
           if(key == undefined){
             res.end("Could not find Multiverse ID\n")
           }else{
-            postToSlack(channel, client, uri);
+            postToSlack(channel, uri);
           }
         }else{ 
         console.log("Bad Card Name\n")
