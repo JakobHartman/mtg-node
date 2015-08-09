@@ -114,7 +114,8 @@ function getRandomCard(channel, client) {
 
 function getCard(card,channel,client,res){  
   card = sanitizeName(card)
-  var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/' + card + "/ids");
+  console.log(card)
+    var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/' + card + "/ids");
     ref.once('value',function(child){
         if(child.val() !== null){
           var length = child.numChildren();
@@ -128,11 +129,11 @@ function getCard(card,channel,client,res){
           }else{
             postToSlack(channel, client, uri);
           }
-      }else{
+      }else{ 
+        console.log("Bad Card Name\n")
         res.end("Bad Card Name\n")
       }
     })
-
 }
 
 function sanitizeName(card){
