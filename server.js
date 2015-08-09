@@ -115,21 +115,20 @@ function getRandomCard(channel, client) {
 function getCard(card,channel,client,res){  
   card = sanitizeName(card)
   console.log(card)
-    var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/' + card + "/ids");
+    var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/').orderByChild("name").startAt(card).endAt(card).limitToFirst(1);
     ref.once('value',function(child){
         if(child.val() !== null){
-          var length = child.numChildren();
-          var rnNum = Math.floor((Math.random() * (length - 1)));
-          var getIds = child.val()
-          var key = Object.keys(getIds)[rnNum]
-          var mId = getIds[key]
-          var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card';
-          if(mId == undefined){
+          var data = child.val()
+          var length = Object.keys(data[card]["ids"])
+          var rnNum = Math.floor((Math.random() * (length.length - 1)));
+          var key = length["set"+rnNum]
+          var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + key + '&type=card';
+          if(key == undefined){
             res.end("Could not find Multiverse ID\n")
           }else{
             postToSlack(channel, client, uri);
           }
-      }else{ 
+        }else{ 
         console.log("Bad Card Name\n")
         res.end("Bad Card Name\n")
       }
