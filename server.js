@@ -91,13 +91,30 @@ app.get('/card', function(req, res) {
         var code = length[0].toUpperCase();
         var cardName = sanitizeName(length[1])
         console.log(cardName)
-        getSpecCard(params.channel_name,code,cardName,res)
+        if(cardName.toLowerCase() == "random"){
+          getRandSpecCard(params.channel,code,res)
+        }else{
+          getSpecCard(params.channel_name,code,cardName,res)
+        }
+        
       } else{
         res.end("Invalid Set Code")
       }
     }
     res.end()
  })
+
+function getRandSpecCard(channel,code,res){
+  var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/multiverseSet/' + code)
+      ref.once("value",function(child){
+        var data = child.val();
+        var num = Object.keys(data).length;
+            num =  Math.floor((Math.random() * (num - 1)));
+        var mId = data[Object.keys(data)[num]]["ids"]
+        var url = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card'
+        postToSlack(channel,url)
+      })
+}
 
 function postToSlack(channel, cardURI) {
 	slack.send({
