@@ -92,7 +92,7 @@ app.get('/card', function(req, res) {
         var cardName = sanitizeName(length[1])
         console.log(cardName)
         if(cardName.toLowerCase() == "random"){
-          getRandSpecCard(params.channel,code,res)
+          getRandSpecCard(params.channel_name,code,res)
         }else{
           getSpecCard(params.channel_name,code,cardName,res)
         }
