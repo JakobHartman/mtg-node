@@ -76,8 +76,8 @@ app.get('/card', function(req, res) {
     console.log(err.toString());
   };
   
-    var length = params.text.split(":");
-    console.log(length.length)
+    var length = params.text.split("\:");
+    console.log("Length: " + length.length)
     if(length.length = 1){
       if(params.text == 'random') {
         getRandomCard(params.channel_name );
@@ -90,6 +90,7 @@ app.get('/card', function(req, res) {
       if(code.length == 3){
         var code = length[0];
         var cardName = sanitizeName(length[1])
+        console.log(cardName)
         getSpecCard(params.channel_name,code,cardName,res)
       } else{
         res.end("Invalid Set Code")
