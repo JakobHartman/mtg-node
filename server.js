@@ -76,7 +76,7 @@ app.get('/card', function(req, res) {
     console.log(err.toString());
   };
   
-    var length = params.text.split(" ");
+    var length = params.text.split(":");
     console.log(length.length)
     if(length.length = 1){
       if(params.text == 'random') {
