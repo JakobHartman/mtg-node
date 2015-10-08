@@ -111,6 +111,7 @@ function getRandSpecCard(channel,code,res){
         var num = Object.keys(data).length;
             num =  Math.floor((Math.random() * (num - 1)));
         var mId = data[Object.keys(data)[num]]["ids"]
+        console.log(num)
         var url = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card'
         postToSlack(channel,url)
       })
