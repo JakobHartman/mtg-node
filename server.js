@@ -78,7 +78,7 @@ app.get('/card', function(req, res) {
   
     var length = params.text.split("\:");
     console.log("Length: " + length.length)
-    if(length.length = 1){
+    if(length.length == 1){
       if(params.text == 'random') {
         getRandomCard(params.channel_name );
       }else if(params.text == 'sets'){
