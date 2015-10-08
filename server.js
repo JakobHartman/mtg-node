@@ -121,8 +121,7 @@ function postToSlack(channel, cardURI) {
 	slack.send({
 		channel: '#' + channel,
 		text: cardURI,
-    image:"magic-cores.jpg",
-		username: 'TestGathererBot'
+		username: 'GathererBot'
 	});
 }
 
