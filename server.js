@@ -166,11 +166,8 @@ function getCard(card,channel,res){
           var data = child.val()
           var cd = data[Object.keys(data)[0]]["ids"]
           var length = Object.keys(cd).length
-          console.log("Number of Sets: " + length)
           var rnNum = Math.floor(Math.random() * length);
-          console.log("Set Selected: " + rnNum)
           var key = cd["set"+rnNum]
-          console.log(key)
           var uri = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + key + '&type=card';
           if(key == undefined){
             res.end("Could not find Multiverse ID\n")
@@ -178,7 +175,6 @@ function getCard(card,channel,res){
             postToSlack(channel, uri);
           }
         }else{ 
-        console.log("Bad Card Name\n")
         res.end("Bad Card Name\n")
       }
     })
