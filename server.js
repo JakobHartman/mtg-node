@@ -87,8 +87,8 @@ app.get('/card', function(req, res) {
         getCard(params.text,params.channel_name,res);
       }
     } else if(length.length == 2){
-      if(code.length == 3){
-        var code = length[0];
+      if(length[0].length == 3){
+        var code = length[0].toUpperCase();
         var cardName = sanitizeName(length[1])
         console.log(cardName)
         getSpecCard(params.channel_name,code,cardName,res)
