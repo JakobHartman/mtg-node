@@ -75,18 +75,26 @@ app.get('/card', function(req, res) {
   slack.onError = function(err) {
     console.log(err.toString());
   };
-  res.end()
-    if(params.text == 'random') {
-      getRandomCard(params.channel_name );
-      
-    }else if(params.text == 'random10'){
-      for(var i = 0;i < 10;i++){
-        getRandomCard(params.channel_name)
+  
+    var length = params.text.split(" ");
+    if(length.length = 1){
+      if(params.text == 'random') {
+        getRandomCard(params.channel_name );
+      }else if(params.text == 'sets'){
+        showSets(res)
+      } else{
+        getCard(params.text,params.channel_name,res);
       }
-    } else{
-      getCard(params.text,params.channel_name,res);
-
+    } else if(length.length == 2){
+      if(code.length == 3){
+        var code = length[0];
+        var cardName = sanitizeName(length[1])
+        getSpecCard(params.channel_name,code,cardName,res)
+      } else{
+        res.end("Invalid Set Code")
+      }
     }
+    res.end()
  })
 
 function postToSlack(channel, cardURI) {
@@ -97,6 +105,20 @@ function postToSlack(channel, cardURI) {
 	});
 }
 
+function getSpecCard(channel,code,card,res){
+      var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/multiverseSet/' + code).orderByChild("name").startAt(card).endAt(card).limitToFirst(1);
+        ref.once("value",function(child){
+            var data = child.val();
+            if(data == null){
+              res.end("Invaild card/set");
+            }else{ 
+              var mId = data[Object.keys(data)[0]]["ids"]
+              var url = 'http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=' + mId + '&type=card'
+              postToSlack(channel,url)
+            }
+        })
+    }
+ 
 function getRandomCard(channel) {
   var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/MultiverseTable/');
 		var rNum = Math.floor((Math.random() * cardCount) + 0);
