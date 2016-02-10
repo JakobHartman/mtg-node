@@ -165,11 +165,16 @@ function getRandomCard(channel) {
 
 function showSets(res){
   var text = "";
-  var ref = new Firebase("https://magictgdeckpricer.firebaseio.com/setInfoX");
+  var ref = new Firebase("https://magictgdeckpricer.firebaseio.com/");
   ref.once('value',function(data){
-      data.forEach(function(set){
+      data.child("setInfoX").forEach(function(set){
         var theSet = set.val();
-        text += theSet.code + " - " + theSet.name + "\n"
+        if(data.child("multiverseSet").child(theSet.code).exists()){
+          text += theSet.code + " - " + theSet.name + "\n"
+        }else{
+          text += theSet.code + " - " + theSet.name + "broken \n"
+        }
+        
       })
       res.end(text);
   })
