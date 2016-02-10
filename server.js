@@ -169,12 +169,7 @@ function showSets(res){
   ref.once('value',function(data){
       data.child("setInfoX").forEach(function(set){
         var theSet = set.val();
-        if(data.child("multiverseSet").child(theSet.code).exists()){
-          text += theSet.code + " - " + theSet.name + "\n"
-        }else{
-          text += theSet.code + " - " + theSet.name + "broken \n"
-        }
-        
+        text += theSet.code + " - " + theSet.name + "\n"
       })
       res.end(text);
   })
