@@ -165,9 +165,9 @@ function getRandomCard(channel) {
 
 function showSets(res){
   var text = "";
-  var ref = new Firebase("https://magictgdeckpricer.firebaseio.com/");
+  var ref = new Firebase("https://magictgdeckpricer.firebaseio.com/setInfoX");
   ref.once('value',function(data){
-      data.child("setInfoX").forEach(function(set){
+      data.forEach(function(set){
         var theSet = set.val();
         text += theSet.code + " - " + theSet.name + "\n"
       })
