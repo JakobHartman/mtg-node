@@ -84,7 +84,8 @@ app.get('/card', function(req, res) {
       if(params.text == 'random') {
         getRandomCard(params.channel_name );
       }else if(params.text == 'sets'){
-        showSets(res)
+        console.log("Showing sets");
+        var string = showSets(res)
       } else{
         getCard(params.text,params.channel_name,res);
       }
@@ -104,7 +105,6 @@ app.get('/card', function(req, res) {
         res.end("Invalid Set Code")
       }
     }
-    res.end()
  })
 
 function getRandSpecCard(channel,code,res){
