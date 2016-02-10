@@ -1,7 +1,7 @@
 'use strict';
 var Firebase = require('firebase');
 var fs = require("fs")
-var sendgrid = require("sendgrid")("Jakobhartman","Dangers1177"); 
+
 var express = require("express")
 var app = express()
 var users;
