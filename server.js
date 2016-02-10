@@ -82,7 +82,8 @@ app.get('/card', function(req, res) {
     console.log("Channel: " + params.channel_name)
     if(length.length == 1){
       if(params.text == 'random') {
-        getRandomCard(params.channel_name );
+        getRandomCard(params.channel_name);
+        res.end();
       }else if(params.text == 'sets'){
         console.log("Showing sets");
         var string = showSets(res)
