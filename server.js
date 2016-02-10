@@ -78,6 +78,8 @@ app.get('/card', function(req, res) {
   
     var length = params.text.split("\:");
     console.log("Length: " + length.length)
+    console.log("Card: " + params.text)
+    console.log("Channel: " + params.channel_name)
     if(length.length == 1){
       if(params.text == 'random') {
         getRandomCard(params.channel_name );
@@ -90,6 +92,7 @@ app.get('/card', function(req, res) {
       if(length[0].length == 3){
         var code = length[0].toUpperCase();
         var cardName = sanitizeName(length[1])
+        console.log(code)
         console.log(cardName)
         if(cardName.toLowerCase() == "random"){
           getRandSpecCard(params.channel_name,code,res)
@@ -126,6 +129,9 @@ function postToSlack(channel, cardURI) {
 }
 
 function getSpecCard(channel,code,card,res){
+      
+      code = code.toUpperCase();
+      console.log(code + " - " + card)
       var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/multiverseSet/' + code).orderByChild("name").startAt(card).endAt(card).limitToFirst(1);
         ref.once("value",function(child){
             var data = child.val();
@@ -155,6 +161,18 @@ function getRandomCard(channel) {
       })
     })
 		
+}
+
+function showSets(res){
+  var text = "";
+  var ref = new Firebase("https://magictgdeckpricer.firebaseio.com/setInfoX");
+  ref.once('value',function(data){
+      data.forEach(function(set){
+        var theSet = set.val();
+        text += theSet.code + " - " + theSet.name + "<br>"
+      })
+      res.end(text);
+  })
 }
 
 function getCard(card,channel,res){  
