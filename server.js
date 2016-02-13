@@ -10,7 +10,7 @@ var PORT = process.env.PORT || 8080;
 var Slack = require('node-slack');
 var slack;
 
-var cards = new Array();
+var searchCards = new Array();
 
 var server = app.listen(PORT, function() {
 	console.log('Listening on port ' + PORT);
@@ -20,9 +20,9 @@ var server = app.listen(PORT, function() {
   })
   new Firebase("https://magictgdeckpricer.firebaseio.com/MultiverseTable/").on('value',function(data){
       data.forEach(function(keys){
-          cards.push(keys.key());
+          searchCards .push(keys.key());
       })
-      console.log(cards.length + " cards found")
+      console.log(searchCards.length + " cards found")
   })
 
 });
@@ -124,10 +124,10 @@ app.get('/card', function(req, res) {
 
 function searchCard(search,res){
   var resCards = "Suggestions: \n"
-  for (item in cards){
-    if(cards[item].length >= search.length){
-      if(cards[item].indexOf(search) != -1){
-        rs += item + "\n"
+  for (var i = 0; i < searchCards.length;i++){
+    if(searchCards[i].length >= search.length){
+      if(searchCards [i].indexOf(search) != -1){
+        rs += searchCards [i] + "\n"
       }
     }
   }
