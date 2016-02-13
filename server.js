@@ -123,12 +123,13 @@ app.get('/card', function(req, res) {
  })
 
 function searchCard(search,res){
-  var res = "Suggestions: \n"
+  var resCards = "Suggestions: \n"
   for (item in cards){
     if(item.indexOf(search) != -1){
       rs += item + "\n"
     }
   }
+  res.end(resCards)
 }
 
 function getRandSpecCard(channel,code,res){
