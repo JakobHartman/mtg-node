@@ -127,7 +127,7 @@ function searchCard(search,res){
   for (var i = 0; i < searchCards.length;i++){
     if(searchCards[i].length >= search.length){
       if(searchCards [i].indexOf(search) != -1){
-        rs += searchCards [i] + "\n"
+        resCards += searchCards [i] + "\n"
       }
     }
   }
