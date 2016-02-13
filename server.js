@@ -10,12 +10,21 @@ var PORT = process.env.PORT || 8080;
 var Slack = require('node-slack');
 var slack;
 
+var cards = new Array();
+
 var server = app.listen(PORT, function() {
 	console.log('Listening on port ' + PORT);
   var slackURL = new Firebase("https://slackintergrationmtg.firebaseio.com/slacks/")
   slackURL.on("value",function(child){
     users = child.val();
   })
+  new Firebase("https://magictgdeckpricer.firebaseio.com/MultiverseTable/").on('value',function(data){
+      data.forEach(function(keys){
+          cards.push(keys.key());
+      })
+      console.log(cards.length + " cards found")
+  })
+
 });
 
 
@@ -98,6 +107,11 @@ app.get('/card', function(req, res) {
         console.log(cardName)
         if(cardName.toLowerCase() == "random"){
           getRandSpecCard(params.channel_name,code,res)
+        }else if(code.toLowerCase() == "cquery"){ 
+          if(cardName.length < 3){
+            res.end("Invalid search: Not long enough")
+          }
+          searchCard(cardName,res)
         }else{
           getSpecCard(params.channel_name,code,cardName,res)
         }
@@ -107,6 +121,15 @@ app.get('/card', function(req, res) {
       }
     }
  })
+
+function searchCard(search,res){
+  var res = "Suggestions: \n"
+  for (item in cards){
+    if(item.indexOf(search) != -1){
+      rs += item + "\n"
+    }
+  }
+}
 
 function getRandSpecCard(channel,code,res){
   var ref = new Firebase('https://magictgdeckpricer.firebaseio.com/multiverseSet/' + code)
