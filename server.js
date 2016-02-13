@@ -100,7 +100,7 @@ app.get('/card', function(req, res) {
         getCard(params.text,params.channel_name,res);
       }
     } else if(length.length == 2){
-      if(length[0].length == 3){
+      if(length[0].length == 3 || length[0] == 'cquery'){
         var code = length[0].toUpperCase();
         var cardName = sanitizeName(length[1])
         console.log(code)
