@@ -125,8 +125,10 @@ app.get('/card', function(req, res) {
 function searchCard(search,res){
   var resCards = "Suggestions: \n"
   for (item in cards){
-    if(item.indexOf(search) != -1){
-      rs += item + "\n"
+    if(cards[item].length >= search.length){
+      if(cards[item].indexOf(search) != -1){
+        rs += item + "\n"
+      }
     }
   }
   res.end(resCards)
