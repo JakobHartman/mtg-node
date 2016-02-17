@@ -261,9 +261,10 @@ function sanitizeName(card){
   if(s[0] != "This"){
     card = card.replace("This","this");
   }
-  if(s[0] != "And"){
+  if(s[1] == "And"){
       card = card.replace("And","and");
   }
+
   
   card = card.replace("Of","of");
   card = card.replace("The","the");
