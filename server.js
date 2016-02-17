@@ -255,14 +255,18 @@ function sanitizeName(card){
     card = card.replaceAt(hiphen,"-")
   }
   var s = card.split(" ")
-  if(card.indexOf("\sTo\s")){
+  if(card.indexOf("\sTo\s")  != -1){
+    console.log(card)
     card = card.replace("To","to");
+    console.log(card)
   }
   if(s[0] != "This"){
     card = card.replace("This","this");
   }
-  if(card.indexOf("\sAnd\s")){
+  if(card.indexOf("\sAnd\s") != -1){
+      console.log(card)
       card = card.replace("And","and");
+      console.log(card)
   }
 
   
