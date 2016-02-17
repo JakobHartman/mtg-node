@@ -255,13 +255,13 @@ function sanitizeName(card){
     card = card.replaceAt(hiphen,"-")
   }
   var s = card.split(" ")
-  if(s[0] != "To"){
+  if(card.indexOf(" To ")){
     card = card.replace("To","to");
   }
   if(s[0] != "This"){
     card = card.replace("This","this");
   }
-  if(s[1] == "And"){
+  if(card.indexOf(" And ")){
       card = card.replace("And","and");
   }
 
